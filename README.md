@@ -65,6 +65,7 @@ npm create vite
 cd palette-picker
 git init
 npm install
+npm run dev
 ```
 
 Now that's going to create some boilerplate code you don't need:
@@ -133,32 +134,58 @@ import './styles.css';
 # Tech Tips
 This is a big project, so here are some helpful things for you to consider. Also, keep in mind you can look at the rubric at the end as a sort of guide to what you need to do.
 
-## UUIDs
-Up until now, to get ahold of an item in an array, we've relied exclusively on it's index, but that won't always work. Say you have some items in your data store, then you filter to only show a few. How would you know which is which? The filtered index won't match the *true* index anymore.
-
-That's were the concept of "ids" comes along. We've seen them in HTML as a way of uniquely identifying an element. A common way to assign data ids on the frontend is by using the [uuid package](https://www.npmjs.com/package/uuid):
-
-```bash
-npm i uuid
-```
-Then, whenever you need a "universally unique identifier" you can do:
-
-```js
-import { v4 as uuidv4 } from 'uuid';
-
-console.log(uuidv4());
-```
-
-Now, technically in this project we don't do any filtering so we don't *need* uuids, but it's a good habit to get into. And we encourage you to use them in this project anyway. The default palettes come with them to keep the options open.
-
 ## Data attributes
 Some things in this project get *way* easier if you know what a data attribute is and why you'd likely want them on buttons. If you are unfamiliar with data attributes in html and `dataset` in JS, make sure you read up on them (your DOM assignment used them!).
+
+[MDN: Using Data Attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes)
 
 ## Color inputs
 You know how there's a ton of input types? Check out `color` for this project!
 
+[MDN: `<input type="color">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color)
+
 ## Required fields
 Do you know how to make an HTML form treat an input as `required`? It's not hard, try figuring it out, and make sure the text input is required!
+
+## UUIDs
+You will be storing your palette data as an **array of objects** (see the JSON data in the next section).
+
+Up until now, to get ahold of an item in an array, we've relied exclusively on it's index, but that won't always work. Say you have some items in your data store, then you filter to only show a few. How would you know which is which? The filtered index won't match the initial index.
+
+That's were the concept of "ids" comes along. We've seen them in HTML as a way of uniquely identifying an element. Particularly when using arrays of objects, a common way to assign data ids on the frontend is by using the [uuid package](https://www.npmjs.com/package/uuid):
+
+```bash
+npm i uuid
+```
+Then, whenever you need a "**u**niversally **u**nique **id**entifier" (UUID) you can do something like this:
+
+```js
+import { v4 as uuidv4 } from 'uuid';
+
+const createNewDataObject = () => {
+  const newDataObject = {
+    uuid: uuidv4(),
+    otherData: 'data',
+    moreData: 'data',
+  }
+  return newDataObject;
+}
+const myNewDataObject = createNewDataObject();
+console.log(myNewDataObject);
+// { uuid: 8721dd38-3a2c-42be-a780-6a4d4c8cbe81, otherData: 'data', moreData: 'data' }
+```
+
+Now, the objects that we create have unique identifiers that will let us easily pull them out of the array.
+
+**Q: What array higher order method would be best for this?**
+
+<details><summary>Answer</summary><br>
+
+> `array.find()` would work perfectly here!
+
+</details><br>
+
+Now, technically in this project we don't do any filtering so we don't *need* uuids, but it's a good habit to get into. And we encourage you to use them in this project anyway. The default palettes come with them to keep the option open.
 
 ## palettes.json
 We're giving you 3 palettes to start! In the real world, you'd probably query a server or something, but we're just going to give them to you as a `json` file (copy it out of this repo and into your project).
@@ -224,7 +251,7 @@ Remember these functions are all *only* the data layer of our project. None of t
 ## Copying to the clipboard
 This used to be a pain, but now it's not! Check out this [article explaining how to copy with the clipboard API](https://chiamakaikeanyi.dev/how-to-copy-text-with-ease-in-javascript-using-the-clipboard-api/). This is a crucial feature, don't forget it!
 
-And don't forget that users need some confirmation of a copy, so alter the buttons text for a second to say "Copied hex!" for 1 second before switching back. Remember `setTimeout`?
+And don't forget that users need some confirmation of a copy, so alter the buttons text for a second to say "Copied hex!" for 1 second before switching back. Look into `setTimeout`.
 
 # Tech Rubric
 In order to see how well you're doing with this project, here are all the things we need would like to see from you. If you get all of these, then you know that you're where you need to be!
@@ -263,8 +290,7 @@ In order to see how well you're doing with this project, here are all the things
 - [ ] Clicking the form submit button does not reload the page because the default behavior is prevented
 - [ ] Clicking the form submit button creates a new palette in the palettes section
 - [ ] Clicking the form submit button clears the form
-- [ ] Clicking one of the copy buttons copies the hex code of the color to the clipboard
-- [ ] Clicking the copy button copies the selected color to the user's clipboard
+- [ ] Clicking one of the copy buttons copies the hex code of the color to the user's clipboard
 - [ ] Clicking the copy button alters the text for a second to say "Copied hex!" for 1 second before switching back
 - [ ] Clicking the delete button removes the palette from the page
 - [ ] Clicking the delete button removes the palette from localStorage (does not come back upon reload of page)
