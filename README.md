@@ -54,7 +54,11 @@ Here's the color picker:
 ![palettes](images/color-type-input.png)
 
 # Vite and getting started
-Remember, we're using Vite for this project! To get started do:
+Remember, we're using Vite for this project! To get started:
+
+1. Create a Github repo (or fork this one)
+2. Clone it down
+3. Then create the Vite project inside the repo using these commands:
 
 ```bash
 npm create vite
@@ -63,7 +67,6 @@ npm create vite
 # Select "Vanilla" for the framework
 # Select JavaScript for the variant
 cd palette-picker
-git init
 npm install
 ```
 
