@@ -1,4 +1,4 @@
-# 2.3.0 - Solo Project: Palette Picker
+# Palette Picker
 
 - [Getting Started](#getting-started)
 - [Project Description](#project-description)
